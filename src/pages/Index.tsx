@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Calculator, TrendingUp, TrendingDown, Bitcoin } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import ThemeToggle from "@/components/ThemeToggle";
 
 interface CalculationResult {
   initialInvestment: number;
@@ -158,7 +158,8 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-100 dark:from-gray-900 dark:via-gray-800 dark:to-orange-950">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <ThemeToggle />
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -175,19 +176,19 @@ const Index = () => {
 
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
           {/* Input Form */}
-          <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+          <Card className="shadow-lg border-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-center text-gray-900 dark:text-gray-100">
                 <Calculator className="h-5 w-5 mr-2 text-orange-500" />
                 Investment Details
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-gray-600 dark:text-gray-400">
                 Enter your investment amount and year to see potential returns
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <label className="text-sm font-medium">Investment Amount</label>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Investment Amount</label>
                 <div className="flex gap-2">
                   <Select value={selectedCurrency} onValueChange={setSelectedCurrency}>
                     <SelectTrigger className="w-20">
@@ -210,7 +211,7 @@ const Index = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Investment Year</label>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Investment Year</label>
                 <Select value={selectedYear} onValueChange={setSelectedYear}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select year" />
@@ -237,9 +238,9 @@ const Index = () => {
 
           {/* Results */}
           {result && (
-            <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+            <Card className="shadow-lg border-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-center text-gray-900 dark:text-gray-100">
                   {result.profitLoss >= 0 ? (
                     <TrendingUp className="h-5 w-5 mr-2 text-green-500" />
                   ) : (
@@ -247,34 +248,34 @@ const Index = () => {
                   )}
                   Investment Results
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-gray-600 dark:text-gray-400">
                   Your Bitcoin investment performance from {result.year}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <p className="text-sm text-gray-600 dark:text-gray-400">Initial Investment</p>
-                    <p className="text-lg font-semibold">{formatCurrency(result.initialInvestment, result.currency)}</p>
+                    <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{formatCurrency(result.initialInvestment, result.currency)}</p>
                   </div>
-                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <p className="text-sm text-gray-600 dark:text-gray-400">BTC Purchased</p>
-                    <p className="text-lg font-semibold">{formatBTC(result.btcBought)}</p>
+                    <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{formatBTC(result.btcBought)}</p>
                   </div>
-                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <p className="text-sm text-gray-600 dark:text-gray-400">BTC Price ({result.year})</p>
-                    <p className="text-lg font-semibold">{formatCurrency(result.btcPriceAtTime, result.currency)}</p>
+                    <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{formatCurrency(result.btcPriceAtTime, result.currency)}</p>
                   </div>
-                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <p className="text-sm text-gray-600 dark:text-gray-400">BTC Price (Today)</p>
-                    <p className="text-lg font-semibold">{formatCurrency(result.currentBtcPrice, result.currency)}</p>
+                    <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{formatCurrency(result.currentBtcPrice, result.currency)}</p>
                   </div>
                 </div>
 
-                <div className="border-t pt-4">
+                <div className="border-t dark:border-gray-600 pt-4">
                   <div className="p-4 bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-lg">
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Current Value</p>
-                    <p className="text-2xl font-bold text-orange-600">
+                    <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">
                       {formatCurrency(result.currentValue, result.currency)}
                     </p>
                   </div>
@@ -288,12 +289,12 @@ const Index = () => {
                       {result.profitLoss >= 0 ? 'Profit' : 'Loss'}
                     </p>
                     <p className={`text-xl font-bold ${
-                      result.profitLoss >= 0 ? 'text-green-600' : 'text-red-600'
+                      result.profitLoss >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
                     }`}>
                       {formatCurrency(Math.abs(result.profitLoss), result.currency)}
                     </p>
                     <p className={`text-sm ${
-                      result.profitLoss >= 0 ? 'text-green-600' : 'text-red-600'
+                      result.profitLoss >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
                     }`}>
                       {result.profitLossPercentage > 0 ? '+' : ''}{result.profitLossPercentage.toFixed(2)}%
                     </p>
@@ -304,7 +305,7 @@ const Index = () => {
           )}
 
           {!result && (
-            <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+            <Card className="shadow-lg border-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
               <CardContent className="flex items-center justify-center h-64">
                 <div className="text-center text-gray-500 dark:text-gray-400">
                   <Bitcoin className="h-16 w-16 mx-auto mb-4 opacity-50" />
